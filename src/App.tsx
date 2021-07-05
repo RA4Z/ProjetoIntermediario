@@ -1,12 +1,12 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './routes';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1> Atividade React </h1>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
   );
 };
 export default App;
