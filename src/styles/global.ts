@@ -9,14 +9,17 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #03116e;
+    background: #292828;
     -webkit-font-smoothing: antialiased;
   }
 
-  body, input, button {
-    font: 20px Roboto, sans-serif;
+  body, button {
+    font: 24px Roboto, sans-serif;
   }
 
+  input {
+    font: 24px Pokemon;
+  }
   #root {
     max-width: 750px;
     margin: 0 auto;

@@ -44,14 +44,14 @@ const Dashboard: React.FC = () => {
   }
   return (
     <>
-      <Title>Pesquisa Pokemon</Title>
+      <Title>Pesquisa Pokémon</Title>
 
       <Form onSubmit={handleAddRepository}>
         <input
           value={newRepo}
           onChange={e => setNewRepo(e.target.value)}
           type="text"
-          placeholder="Digite o nome do repositório"
+          placeholder="Digite o nome do Pokémon"
         />
         <button type="submit">Pesquisar</button>
       </Form>
@@ -70,7 +70,12 @@ const Dashboard: React.FC = () => {
               <p>Game version: {repository.version_group.name}</p>
               <p>Poke ID: {repository.id}</p>
             </div>
+            <b><img
+            src="https://imagensemoldes.com.br/wp-content/uploads/2020/04/Logo-Pokebola-Pok%C3%A9mon-PNG.png"
+            alt="pokebola"
+            /></b>
           </a>
+          
         ))}
       </Repositories>
     </>

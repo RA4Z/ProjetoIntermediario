@@ -3,9 +3,9 @@ import { shade } from 'polished';
 
 export const Title = styled.h1`
   color: #ff0800;
-  font-size: 45px;
   max-width: 450px;
   line-height: 56px;
+  font: 52px Pokemon;
 
   margin: 30px auto;
 `;
@@ -31,7 +31,7 @@ export const Form = styled.form`
   button {
     width: 210px;
     height: 70px;
-    background: #04d361;
+    background: #ff0800;
     border-radius: 0 5px 5px 0;
     border: 0;
     color: #fff;
@@ -53,7 +53,7 @@ a {
   background: #fff;
   border-radius: 5px;
   width: 100%;
-  padding: 24px;
+  padding: 7px;
   display block;
   text-decoration: none;
 
@@ -82,11 +82,12 @@ a {
     margin-top: 7.5px;
 
     strong {
-      font-size: 20px;
+      font: 20px Pokemon;
+      text-transform: uppercase;
       color: #3d3d4d;
     }
     p {
-      font-size: 18px;
+      font-size: 15px;
       color: #a8a8b3;
       margin-top: 4px;
 
@@ -94,6 +95,11 @@ a {
         margin-left: 1px;
       }
     }
+  }
+  b {
+    width: 50px;
+    height: 97px;
+    margin-left: 305px;
   }
 }
 `;
