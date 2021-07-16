@@ -2,7 +2,7 @@ import React, { useState, FormEvent } from 'react';
 import { FiFastForward } from 'react-icons/fi';
 import api from '../../services/api';
 
-import { Title, Repositories, Form } from './styles';
+import { Title, Repositories, Form, Error } from './styles';
 
 interface Repository {
   id: number;
@@ -27,6 +27,7 @@ interface Tipo {
 
 const Dashboard: React.FC = () => {
   const [newRepo, setNewRepo] = useState('');
+  const [inputError, setInputError] = useState('');
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [tipo, setTipo] = useState<Tipo[]>([]);
 
@@ -35,18 +36,28 @@ const Dashboard: React.FC = () => {
   ): Promise<void> {
     event.preventDefault();
 
-    const response = await api.get<Repository>(`https://pokeapi.co/api/v2/pokemon-form/${newRepo}`);
-    const repository = response.data;
+    if(!newRepo) {
+      setInputError("Digite um nome ou ID de Pokémon para pesquisar. ");
+      return;
+    }
 
-    setRepositories([...repositories, repository]);
-    setTipo(repository.types);
-    setNewRepo('');
+    try{
+      const response = await api.get<Repository>(`https://pokeapi.co/api/v2/pokemon-form/${newRepo}`);
+      const repository = response.data;
+
+     setRepositories([...repositories, repository]);
+     setTipo(repository.types);
+      setNewRepo('');
+     setInputError('');
+    } catch(err){
+      setInputError("Repositório não encontrado ou inexistente");
+    }
   }
   return (
     <>
       <Title>Pesquisa Pokémon</Title>
 
-      <Form onSubmit={handleAddRepository}>
+      <Form hasError={Boolean(inputError)} onSubmit={handleAddRepository}>
         <input
           value={newRepo}
           onChange={e => setNewRepo(e.target.value)}
@@ -55,6 +66,9 @@ const Dashboard: React.FC = () => {
         />
         <button type="submit">Pesquisar</button>
       </Form>
+
+      {inputError && <Error>{inputError}</Error>}
+
       <Repositories>
         {repositories.map(repository => (
           <a key={repository.id} href={repository.pokemon.url}>
