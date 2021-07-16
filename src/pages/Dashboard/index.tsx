@@ -1,5 +1,5 @@
-import React, { useState, FormEvent } from 'react';
-import { FiFastForward } from 'react-icons/fi';
+import React, { useState, useEffect, FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 import { Title, Repositories, Form, Error } from './styles';
@@ -28,7 +28,24 @@ interface Tipo {
 const Dashboard: React.FC = () => {
   const [newRepo, setNewRepo] = useState('');
   const [inputError, setInputError] = useState('');
-  const [repositories, setRepositories] = useState<Repository[]>([]);
+  const [repositories, setRepositories] = useState<Repository[]>(() => {
+    const storageRepository = localStorage.getItem(
+      '@PokémonExplorer:repositories',
+    );
+
+    if (storageRepository) {
+      return JSON.parse(storageRepository);
+    }
+
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      '@PokémonExplorer:repositories',
+      JSON.stringify(repositories),
+    );
+  }, [repositories]);
   const [tipo, setTipo] = useState<Tipo[]>([]);
 
   async function handleAddRepository(
@@ -71,7 +88,7 @@ const Dashboard: React.FC = () => {
 
       <Repositories>
         {repositories.map(repository => (
-          <a key={repository.id} href={repository.pokemon.url}>
+          <Link key={repository.id} to={`/repository/${repository.name}`}>
             <img
               src={repository.sprites.front_default}
               alt="pokemon"
@@ -88,7 +105,7 @@ const Dashboard: React.FC = () => {
             src="https://imagensemoldes.com.br/wp-content/uploads/2020/04/Logo-Pokebola-Pok%C3%A9mon-PNG.png"
             alt="pokebola"
             /></b>
-          </a>
+          </Link>
           
         ))}
       </Repositories>
